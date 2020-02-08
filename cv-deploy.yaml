@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: cv-deploy 
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app : cv
+    template:
+        metadata:
+            name: cv
+            labels:
+                app: cv
+        spec:
+            containers:
+            - image: sanamughal1988/cvv
+              name: cvv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cv-svc
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: cv                       
